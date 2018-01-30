@@ -50,12 +50,11 @@ class CardViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func setUpView() -> Void {
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind:UICollectionElementKindSectionHeader, withReuseIdentifier: RegisteredCellClassIdentifier.layoutCollectionViewHeader)
-        
         collectionView.delegate = self
         collectionView.dataSource = self
         customLayout?.delegate = self
-        
     }
+    
     func setupNavigationBarItems() -> Void {
 //        self.title = "Swifty Layouts"
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -66,7 +65,7 @@ class CardViewController: UIViewController, UICollectionViewDelegate, UICollecti
 extension CardViewController {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -106,14 +105,14 @@ extension CardViewController {
     func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat {
         return 50
     }
-    
 }
 
 private extension CardViewController {
     func setupCollectionViewLayout() {
         guard /*let collectionView = collectionView,*/ let customLayout = customLayout else { return }
         // register for layout elements
-        let layoutSetting = LayoutSetting(contentMargin: UIEdgeInsets.zero, sectionMargin: UIEdgeInsets.zero, cellMargin: UIEdgeInsetsMake(15, 10, 15, 10))
+        var layoutSetting = LayoutSetting(contentMargin: UIEdgeInsets.zero, sectionMargin: UIEdgeInsetsMake(2, 10, 2, 10), cellMargin: UIEdgeInsetsMake(15, 10, 15, 10))
+        layoutSetting.floatingHeaders = true
         customLayout.layoutSetting = layoutSetting
     }
 }
@@ -170,6 +169,6 @@ extension LayoutCollectionViewCell {
         self.layer.shadowOpacity = 1.0
         self.layer.shadowRadius = 5
         layer.masksToBounds = false
-        self.layer.shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius:10).cgPath
+        self.layer.shadowPath = UIBezierPath(roundedRect:self.bounds, cornerRadius:0).cgPath
     }
 }

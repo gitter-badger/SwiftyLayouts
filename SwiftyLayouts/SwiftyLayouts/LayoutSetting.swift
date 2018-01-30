@@ -15,7 +15,7 @@ public struct LayoutSetting {
      var cellMargin:UIEdgeInsets
      var minHeaderOverlayZIndex:Int = 1000
      var minItemZIndex:Int = 100
-     var floatingHeaders:Bool = false
+     public var floatingHeaders:Bool = false
      var floatingFooters:Bool = false
     
     
@@ -34,7 +34,7 @@ public struct LayoutSetting {
     public mutating func updateCellMargin(cellMargin:UIEdgeInsets) {
         self.cellMargin = cellMargin
     }
-    
+        
 }
 
 

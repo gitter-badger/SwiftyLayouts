@@ -80,20 +80,21 @@ extension CardViewController {
         
         return layoutCell
     }
-    
+    /*
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         var separator:UICollectionReusableView
         
         if (kind == UICollectionElementKindSectionHeader) {
             separator = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:RegisteredCellClassIdentifier.layoutCollectionViewHeader, for: indexPath)
             separator.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+//            separator = UICollectionReusableView(frame: CGRect.zero)
         } else {
             separator = UICollectionReusableView(frame: CGRect.zero)
         }
-        
+
         return separator
     }
-    
+    */
 }
 
 extension CardViewController {
@@ -102,9 +103,9 @@ extension CardViewController {
         return 120
     }
     
-    func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat {
-        return 50
-    }
+//    func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat {
+//        return 0
+//    }
 }
 
 private extension CardViewController {

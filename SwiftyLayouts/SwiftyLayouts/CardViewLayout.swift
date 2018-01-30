@@ -13,11 +13,15 @@ public protocol LayoutDelegate : class {
     func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat
 }
 
-extension LayoutDelegate {
+public extension LayoutDelegate {
+    
     func collectionView(_ collectionView:UICollectionView, heightForCellAtIndexPath indexPath:IndexPath) -> CGFloat {
-        
-        return 200
+        return 45
     }
+    func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat {
+        return 0
+    }
+
 }
 
 public class CardViewLayout: UICollectionViewLayout {

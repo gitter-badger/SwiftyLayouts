@@ -65,7 +65,7 @@ class CardViewController: UIViewController, UICollectionViewDelegate, UICollecti
 extension CardViewController {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -80,7 +80,7 @@ extension CardViewController {
         
         return layoutCell
     }
-    /*
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         var separator:UICollectionReusableView
         
@@ -88,13 +88,18 @@ extension CardViewController {
             separator = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:RegisteredCellClassIdentifier.layoutCollectionViewHeader, for: indexPath)
             separator.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
 //            separator = UICollectionReusableView(frame: CGRect.zero)
+            if indexPath == IndexPath(index:0) {
+                separator.backgroundColor = #colorLiteral(red: 0.7598647549, green: 0.5621008782, blue: 1, alpha: 1)
+            }
+            
         } else {
             separator = UICollectionReusableView(frame: CGRect.zero)
         }
 
         return separator
     }
-    */
+    
+    
 }
 
 extension CardViewController {
@@ -103,9 +108,13 @@ extension CardViewController {
         return 120
     }
     
-//    func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat {
-//        return 0
-//    }
+    func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat {
+        if indexPath == IndexPath(index:0) {
+            return 200
+        }
+        
+        return 50
+    }
 }
 
 private extension CardViewController {

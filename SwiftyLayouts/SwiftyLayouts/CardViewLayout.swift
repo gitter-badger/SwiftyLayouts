@@ -228,20 +228,27 @@ private extension CardViewLayout {
         var firstAttributeFrame:CGRect = CGRect.zero
         var lastAttributeFrame:CGRect = CGRect.zero
         var itemMinY:CGFloat
+        if offset < 0 {
+            offset = 0
+        } else if (offset > collectionView.frame.size.height) && (offset > (collectionView.contentSize.height - collectionView.frame.size.height)) {
+            offset = collectionView.contentSize.height - collectionView.frame.size.height
+        }
+        
+        let heightValue = collectionView.contentSize.height - collectionView.bounds.size.height
         
         //Global header
         if indexPath.count == 1 {
-            firstAttributeFrame = globalHeaderAttributes.frame
+            firstAttributeFrame = (itemLayoutAttributeCache[IndexPath(item:0, section:0)]?.frame)!
             lastAttributeFrame = (headerLayoutAttributeCache[IndexPath(item:0, section:0)]?.frame)!
-            itemMinY = max(offset, firstAttributeFrame.minY)
+            itemMinY = min(max(offset, firstAttributeFrame.minY - 250), heightValue)
             attributes.zIndex = layoutSetting.minHeaderOverlayZIndex + 10
-
+            
         } else {
             let numberOfItemsInSection:Int = collectionView.numberOfItems(inSection: indexPath.section)
             firstAttributeFrame = (itemLayoutAttributeCache[indexPath]?.frame)!
             lastAttributeFrame = (itemLayoutAttributeCache[IndexPath(item: max(0,numberOfItemsInSection-1), section: indexPath.section )]?.frame)!
             //offset = offset + globalHeaderAttributes.frame.height + ((cellHeight+layoutSetting.cellMargin.top) * CGFloat(indexPath.section))
-            //            itemMinY = max(offset, (firstAttributeFrame.minY - cellHeight))
+            // itemMinY = max(offset, (firstAttributeFrame.minY - cellHeight))
             offset = offset + globalHeaderAttributes.frame.height + layoutSetting.sectionMargin.top
 
             itemMinY = min(

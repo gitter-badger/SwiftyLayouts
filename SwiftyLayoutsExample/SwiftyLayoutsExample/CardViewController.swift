@@ -98,8 +98,7 @@ extension CardViewController {
 
         return separator
     }
-    
-    
+//    */
 }
 
 extension CardViewController {
@@ -110,11 +109,12 @@ extension CardViewController {
     
     func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat {
         if indexPath == IndexPath(index:0) {
-            return 200
+            return 200 //CGFloat.leastNormalMagnitude
         }
         
         return 50
     }
+ 
 }
 
 private extension CardViewController {

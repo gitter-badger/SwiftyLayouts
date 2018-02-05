@@ -19,8 +19,6 @@
 		E157DD282017125C008A7BAD /* LayoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E157DD272017125C008A7BAD /* LayoutTableViewCell.swift */; };
 		E157DD2A201721D8008A7BAD /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E157DD29201721D7008A7BAD /* CardViewController.swift */; };
 		E157DD2C20175D32008A7BAD /* LayoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E157DD2B20175D32008A7BAD /* LayoutCollectionViewCell.swift */; };
-		E1B6538A20205CAE007B742C /* SwiftyLayouts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B6538720205C4C007B742C /* SwiftyLayouts.framework */; };
-		E1B6538B20205CAE007B742C /* SwiftyLayouts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1B6538720205C4C007B742C /* SwiftyLayouts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,27 +29,6 @@
 			remoteGlobalIDString = E1415D41200F65E800651407;
 			remoteInfo = SwiftyLayoutsExample;
 		};
-		E1B6538620205C4C007B742C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E1B6538120205C4C007B742C /* SwiftyLayouts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E1415CDB200F617100651407;
-			remoteInfo = SwiftyLayouts;
-		};
-		E1B6538820205C4C007B742C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E1B6538120205C4C007B742C /* SwiftyLayouts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E1415CE4200F617100651407;
-			remoteInfo = SwiftyLayoutsTests;
-		};
-		E1B6538C20205CAE007B742C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E1B6538120205C4C007B742C /* SwiftyLayouts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = E1415CDA200F617100651407;
-			remoteInfo = SwiftyLayouts;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,7 +38,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E1B6538B20205CAE007B742C /* SwiftyLayouts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,7 +65,6 @@
 		E157DD272017125C008A7BAD /* LayoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutTableViewCell.swift; sourceTree = "<group>"; };
 		E157DD29201721D7008A7BAD /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		E157DD2B20175D32008A7BAD /* LayoutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutCollectionViewCell.swift; sourceTree = "<group>"; };
-		E1B6538120205C4C007B742C /* SwiftyLayouts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyLayouts.xcodeproj; path = ../SwiftyLayouts/SwiftyLayouts.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +72,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1B6538A20205CAE007B742C /* SwiftyLayouts.framework in Frameworks */,
 				B98B30274C04E1E6C024D50A /* Pods_SwiftyLayoutsExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,7 +118,6 @@
 		E1415D39200F65E800651407 = {
 			isa = PBXGroup;
 			children = (
-				E1B6538120205C4C007B742C /* SwiftyLayouts.xcodeproj */,
 				E1415D44200F65E800651407 /* SwiftyLayoutsExample */,
 				E1415D59200F65E800651407 /* SwiftyLayoutsExampleTests */,
 				E1415D43200F65E800651407 /* Products */,
@@ -188,15 +161,6 @@
 			path = SwiftyLayoutsExampleTests;
 			sourceTree = "<group>";
 		};
-		E1B6538220205C4C007B742C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E1B6538720205C4C007B742C /* SwiftyLayouts.framework */,
-				E1B6538920205C4C007B742C /* SwiftyLayoutsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -215,7 +179,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				E1B6538D20205CAE007B742C /* PBXTargetDependency */,
 			);
 			name = SwiftyLayoutsExample;
 			productName = SwiftyLayoutsExample;
@@ -275,12 +238,6 @@
 			mainGroup = E1415D39200F65E800651407;
 			productRefGroup = E1415D43200F65E800651407 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = E1B6538220205C4C007B742C /* Products */;
-					ProjectRef = E1B6538120205C4C007B742C /* SwiftyLayouts.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				E1415D41200F65E800651407 /* SwiftyLayoutsExample */,
@@ -288,23 +245,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		E1B6538720205C4C007B742C /* SwiftyLayouts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyLayouts.framework;
-			remoteRef = E1B6538620205C4C007B742C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		E1B6538920205C4C007B742C /* SwiftyLayoutsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftyLayoutsTests.xctest;
-			remoteRef = E1B6538820205C4C007B742C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E1415D40200F65E800651407 /* Resources */ = {
@@ -460,11 +400,6 @@
 			isa = PBXTargetDependency;
 			target = E1415D41200F65E800651407 /* SwiftyLayoutsExample */;
 			targetProxy = E1415D57200F65E800651407 /* PBXContainerItemProxy */;
-		};
-		E1B6538D20205CAE007B742C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftyLayouts;
-			targetProxy = E1B6538C20205CAE007B742C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

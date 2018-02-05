@@ -10,7 +10,7 @@ import UIKit
 
 public protocol LayoutDelegate : class {
     func collectionView(_ collectionView:UICollectionView, heightForCellAtIndexPath indexPath:IndexPath) -> CGFloat
-    func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat
+    func collectionView(_ collectionView:UICollectionView, ofSuplementryViewKind kind: String,  heightAtIndexPath indexPath:IndexPath) -> CGFloat
 }
 
 public extension LayoutDelegate {
@@ -19,7 +19,7 @@ public extension LayoutDelegate {
         return 45
     }
     
-    func collectionView(_ collectionView:UICollectionView, heightForSuplementryViewAtIndexPath indexPath:IndexPath) -> CGFloat {
+    func collectionView(_ collectionView:UICollectionView, ofSuplementryViewKind kind: String,  heightAtIndexPath indexPath:IndexPath) -> CGFloat {
         if indexPath == IndexPath(index:0) {
             return CGFloat.leastNormalMagnitude
         }
@@ -218,7 +218,8 @@ private extension CardViewLayout {
     private func createSuplementryAttribute(ofKind kind:String, cellIndexPath:IndexPath) -> (UICollectionViewLayoutAttributes) {
     
         let attribute = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind:UICollectionElementKindSectionHeader, with:cellIndexPath)
-        let cellHeight: CGFloat = delegate.collectionView(self.collectionView!, heightForSuplementryViewAtIndexPath:cellIndexPath)
+        
+        let cellHeight: CGFloat = delegate.collectionView(self.collectionView!, ofSuplementryViewKind:UICollectionElementKindSectionHeader, heightAtIndexPath: cellIndexPath)
         let itemMinY:CGFloat = (collectionViewContentHeight + layoutSetting.sectionMargin.top)
         let itemMaxY:CGFloat = itemMinY + cellHeight + layoutSetting.sectionMargin.bottom
         let itemMinX:CGFloat = layoutSetting.sectionMargin.left + layoutSetting.contentMargin.left
@@ -241,7 +242,7 @@ private extension CardViewLayout {
     
     private func updateSupplementaryViews(attributes: UICollectionViewLayoutAttributes, collectionView: UICollectionView, indexPath: IndexPath) {
         
-        var cellHeight: CGFloat = delegate.collectionView(collectionView, heightForSuplementryViewAtIndexPath:indexPath)
+        var cellHeight: CGFloat = delegate.collectionView(self.collectionView!, ofSuplementryViewKind:UICollectionElementKindSectionHeader, heightAtIndexPath: indexPath)
         var offset = collectionView.contentOffset.y + collectionView.contentInset.top
         offset = offset + layoutSetting.sectionMargin.top
         var firstAttributeFrame:CGRect = CGRect.zero
@@ -308,16 +309,14 @@ private extension CardViewLayout {
         return 10
     }
     
-    func rectForSection(section:Int) -> CGRect {
+   /* func rectForSection(section:Int) -> CGRect {
         var sectionRect = CGRect.zero
-        
-        
         return sectionRect
-    }
+    } */
     
     private func isGlobalHeaderProvided () -> (Bool) {
         var isHeader:Bool = false
-        let height =  delegate.collectionView(collectionView!,heightForSuplementryViewAtIndexPath:IndexPath(index:0))
+        let height = delegate.collectionView(self.collectionView!, ofSuplementryViewKind:UICollectionElementKindSectionHeader, heightAtIndexPath: IndexPath(index:0))
         if height > CGFloat.leastNormalMagnitude {
             isHeader = true
         }

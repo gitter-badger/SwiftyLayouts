@@ -175,31 +175,36 @@ private extension CardViewLayout {
         if  isGlobalHeaderProvided() {
             let globalIndexPath = IndexPath(index: 0)
             globalHeaderAttributes = createSuplementryAttribute(ofKind:UICollectionElementKindSectionHeader, cellIndexPath:globalIndexPath)
-            collectionViewContentHeight = globalHeaderAttributes.frame.maxY
             headerLayoutAttributeCache[globalIndexPath] = globalHeaderAttributes
+            collectionViewContentHeight = globalHeaderAttributes.frame.maxY
+            collectionViewContentHeight = collectionViewContentHeight + layoutSetting.sectionMargin.bottom
         }
         // Section layout
         for section in 0 ..< collectionView.numberOfSections {
             //header layouts
             let headerIndexPath = IndexPath(item:0, section: section)
             let sectionHeaderAttribute = createSuplementryAttribute(ofKind:UICollectionElementKindSectionHeader, cellIndexPath:headerIndexPath )
-            collectionViewContentHeight = sectionHeaderAttribute.frame.maxY
             headerLayoutAttributeCache[headerIndexPath] = sectionHeaderAttribute
-            
+            collectionViewContentHeight = sectionHeaderAttribute.frame.maxY
+            collectionViewContentHeight = collectionViewContentHeight + layoutSetting.sectionMargin.bottom
+
             for item in 0 ..< collectionView.numberOfItems(inSection: section) {
                 //cell layouts
                 let cellIndexPath = IndexPath(item: item, section: section)
                 let attribute = createItemAttribute(forCellWith:cellIndexPath)
-                collectionViewContentHeight = attribute.frame.maxY
                 itemLayoutAttributeCache[cellIndexPath] = attribute
+                collectionViewContentHeight = attribute.frame.maxY
+                collectionViewContentHeight = collectionViewContentHeight + layoutSetting.cellMargin.bottom
             }
+            collectionViewContentHeight = collectionViewContentHeight + layoutSetting.sectionMargin.bottom
         }
         //Global Footer
         if  isGlobalFooterProvided() {
             let globalIndexPath = IndexPath(index: 0)
             globalFooterAttributes = createSuplementryAttribute(ofKind:UICollectionElementKindSectionFooter, cellIndexPath:globalIndexPath)
-            collectionViewContentHeight = globalFooterAttributes.frame.maxY
             footerLayoutAttributeCache[globalIndexPath] = globalFooterAttributes
+            collectionViewContentHeight = globalFooterAttributes.frame.maxY
+            collectionViewContentHeight = collectionViewContentHeight + layoutSetting.sectionMargin.bottom
         }
     }
     
@@ -207,7 +212,7 @@ private extension CardViewLayout {
         let attribute = UICollectionViewLayoutAttributes(forCellWith: cellIndexPath)
         let cellHeight: CGFloat = delegate.collectionView(self.collectionView!, heightForCellAtIndexPath: cellIndexPath)
         let itemMinY:CGFloat = collectionViewContentHeight + layoutSetting.cellMargin.top
-        let itemMaxY:CGFloat = itemMinY + cellHeight + layoutSetting.cellMargin.bottom
+        let itemMaxY:CGFloat = itemMinY + cellHeight
         let itemMinX:CGFloat = layoutSetting.cellMargin.left + layoutSetting.contentMargin.left
         let itemMaxX:CGFloat = collectionView!.bounds.width - (layoutSetting.cellMargin.right + layoutSetting.contentMargin.right)
         attribute.frame = CGRect(
@@ -227,7 +232,7 @@ private extension CardViewLayout {
         
         let cellHeight: CGFloat = delegate.collectionView(self.collectionView!, ofSuplementryViewKind:kind, heightAtIndexPath: cellIndexPath)
         let itemMinY:CGFloat = (collectionViewContentHeight + layoutSetting.sectionMargin.top)
-        let itemMaxY:CGFloat = itemMinY + cellHeight + layoutSetting.sectionMargin.bottom
+        let itemMaxY:CGFloat = itemMinY + cellHeight
         let itemMinX:CGFloat = layoutSetting.sectionMargin.left + layoutSetting.contentMargin.left
         var itemMaxX:CGFloat
        
@@ -271,24 +276,27 @@ private extension CardViewLayout {
         var lastAttributeFrame:CGRect = CGRect.zero
         var itemMinY:CGFloat = 0
         if offset < 0 {
-            offset = 0
+            offset = 0 //layoutSetting.sectionMargin.top
         } else if (offset > collectionView.frame.size.height) && (offset > (collectionView.contentSize.height - collectionView.frame.size.height)) {
             offset = collectionView.contentSize.height - collectionView.frame.size.height
+//            offset = offset + layoutSetting.sectionMargin.top
         }
         
-        let heightValue = collectionView.contentSize.height - collectionView.bounds.size.height
+        let heightValue = collectionView.contentSize.height - (collectionView.bounds.size.height + layoutSetting.sectionMargin.top)
         
         //Global header
-        //MARK: create switc statement
+        //MARK: create switch statement
         if indexPath.count == 1 && attributes.representedElementKind == UICollectionElementKindSectionHeader {
             if (offset < 100) {
                 cellHeight = cellHeight - offset
             } else {
                 cellHeight = cellHeight - 100
             }
+            let offsetAdjustment:CGFloat = 50 + layoutSetting.sectionMargin.top + layoutSetting.cellMargin.top + layoutSetting.sectionMargin.bottom
+            
             firstAttributeFrame = (itemLayoutAttributeCache[IndexPath(item:0, section:0)]?.frame)!
             lastAttributeFrame = (headerLayoutAttributeCache[IndexPath(item:0, section:0)]?.frame)!
-            itemMinY = min(max(offset, firstAttributeFrame.minY - cellHeight - CGFloat(50)), heightValue)
+            itemMinY = min(max(offset, firstAttributeFrame.minY - (offsetAdjustment+cellHeight)), heightValue)
             attributes.zIndex = layoutSetting.minHeaderOverlayZIndex + 10
             
         } else if indexPath.count == 1 && attributes.representedElementKind == UICollectionElementKindSectionFooter {
@@ -298,15 +306,16 @@ private extension CardViewLayout {
             let numberOfItemsInSection:Int = collectionView.numberOfItems(inSection: indexPath.section)
             firstAttributeFrame = (itemLayoutAttributeCache[indexPath]?.frame)!
             lastAttributeFrame = (itemLayoutAttributeCache[IndexPath(item: max(0,numberOfItemsInSection-1), section: indexPath.section )]?.frame)!
-            offset = offset + globalHeaderAttributes.frame.height + layoutSetting.sectionMargin.top
+            offset = offset + globalHeaderAttributes.frame.height + layoutSetting.sectionMargin.top + layoutSetting.sectionMargin.bottom
+            let offsetAdjustment:CGFloat = layoutSetting.cellMargin.top + layoutSetting.sectionMargin.bottom
 
             itemMinY = min(
-                max(offset, (firstAttributeFrame.minY - cellHeight)),
-                (lastAttributeFrame.maxY - cellHeight))
+                max(offset, ((firstAttributeFrame.minY - offsetAdjustment) - cellHeight)),
+                ((lastAttributeFrame.maxY+layoutSetting.sectionMargin.bottom) - cellHeight))
             attributes.zIndex = layoutSetting.minHeaderOverlayZIndex
         } 
         
-        let itemMaxY:CGFloat = itemMinY + cellHeight + layoutSetting.sectionMargin.bottom
+        let itemMaxY:CGFloat = itemMinY + cellHeight
         let itemMinX:CGFloat = layoutSetting.sectionMargin.left + layoutSetting.contentMargin.left
         let itemMaxX:CGFloat = collectionView.bounds.width - (layoutSetting.sectionMargin.right + layoutSetting.contentMargin.right)
         attributes.frame = CGRect(

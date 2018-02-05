@@ -52,7 +52,7 @@ class CardViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func setUpView() -> Void {
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind:UICollectionElementKindSectionHeader, withReuseIdentifier: RegisteredCellClassIdentifier.layoutCollectionViewHeader)
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind:UICollectionElementKindSectionFooter, withReuseIdentifier: RegisteredCellClassIdentifier.layoutCollectionViewFooter)
-        
+        collectionView.contentInset = UIEdgeInsets.zero
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -142,7 +142,7 @@ private extension CardViewController {
     func setupCollectionViewLayout() {
         guard let customLayout = customLayout else { return }
         // register for layout elements
-        var layoutSetting = LayoutSetting(contentMargin: UIEdgeInsets.zero, sectionMargin: UIEdgeInsetsMake(2, 10, 2, 10), cellMargin: UIEdgeInsetsMake(15, 10, 15, 10))
+        var layoutSetting = LayoutSetting(contentMargin: UIEdgeInsets.zero, sectionMargin: UIEdgeInsetsMake(5, 10, 5, 10), cellMargin: UIEdgeInsetsMake(5, 10, 5, 10))
         layoutSetting.floatingHeaders = true
         customLayout.layoutSetting = layoutSetting
     }

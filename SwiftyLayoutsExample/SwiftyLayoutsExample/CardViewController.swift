@@ -12,6 +12,7 @@ import SwiftyLayouts
 fileprivate struct RegisteredCellClassIdentifier {
     static let layoutCollectionViewCell:String = "LayoutCollectionViewCell"
     static let layoutCollectionViewHeader:String = "LayoutCollectionViewHeader"
+    static let layoutCollectionViewFooter:String = "LayoutCollectionViewFooter"
 
 }
 
@@ -50,6 +51,8 @@ class CardViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func setUpView() -> Void {
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind:UICollectionElementKindSectionHeader, withReuseIdentifier: RegisteredCellClassIdentifier.layoutCollectionViewHeader)
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind:UICollectionElementKindSectionFooter, withReuseIdentifier: RegisteredCellClassIdentifier.layoutCollectionViewFooter)
+        
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -86,15 +89,14 @@ extension CardViewController {
         var separator:UICollectionReusableView
         
         if (kind == UICollectionElementKindSectionHeader) {
-            separator = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier:RegisteredCellClassIdentifier.layoutCollectionViewHeader, for: indexPath)
+            separator = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier:RegisteredCellClassIdentifier.layoutCollectionViewHeader, for: indexPath)
             separator.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
-//            separator = UICollectionReusableView(frame: CGRect.zero)
             if indexPath == IndexPath(index:0) {
                 separator.backgroundColor = #colorLiteral(red: 0.7598647549, green: 0.5621008782, blue: 1, alpha: 1)
             }
             
         } else if (kind == UICollectionElementKindSectionFooter) {
-            separator = UICollectionReusableView(frame: CGRect.zero)
+            separator = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier:RegisteredCellClassIdentifier.layoutCollectionViewFooter, for: indexPath)
             separator.backgroundColor = #colorLiteral(red: 0.7598647549, green: 0.5621008782, blue: 1, alpha: 1)
         } else {
             separator = UICollectionReusableView(frame: CGRect.zero)
@@ -125,7 +127,7 @@ extension CardViewController {
             if indexPath == IndexPath(index:0) {
                 height = 200 //CGFloat.leastNormalMagnitude
             } else {
-                height = 50
+                height = CGFloat.leastNormalMagnitude
             }
         default:
             height = 50
